@@ -15,6 +15,20 @@ return new class extends Migration
     {
         Schema::create('profils', function (Blueprint $table) {
             $table->id();
+            $table->string('nama');
+            $table->string('moto');
+            $table->text('deskripsi');
+            $table->string('logo');
+            $table->string('ak_twitter')->nullable();
+            $table->string('ak_facebook')->nullable();
+            $table->string('ak_youtube')->nullable();
+            $table->string('ak_instagram')->nullable();
+            $table->string('alamat');
+            $table->string('email');
+            $table->string('telp');
+            $table->string('bg_1')->nullable();
+            $table->string('bg_2')->nullable();
+            $table->string('bg_3')->nullable();
             $table->timestamps();
         });
     }
