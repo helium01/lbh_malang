@@ -9,18 +9,19 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form>
+              <form method="post" action="{{route('berita.store')}}" enctype="multipart/form-data">
+                @csrf
                 <div class="card-body">
                   <div class="form-group">
                     <label for="exampleInputEmail1">judul</label>
-                    <input type="text" name="judul" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                    <input type="text" name="judul" class="form-control" id="exampleInputEmail1" placeholder="masukan judul">
                   </div>
                   <div class="form-group">
                     <input type="hidden" name="author" value="{{Auth::user()->name}}" class="form-control" id="exampleInputPassword1" placeholder="Password">
                     <input type="hidden" name="tanggal" value="{{date('d,m,Y')}}" class="form-control" id="exampleInputPassword1" placeholder="Password">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputFile">File input</label>
+                    <label for="exampleInputFile">Foto</label>
                     <div class="input-group">
                       <div class="custom-file">
                         <input type="file" name="foto" class="custom-file-input" id="exampleInputFile">

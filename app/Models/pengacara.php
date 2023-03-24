@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class pengacara extends Model
 {
     use HasFactory;
+    protected $fillable=[
+        'nama',
+        'biografi',
+        'foto',
+    ];
 }

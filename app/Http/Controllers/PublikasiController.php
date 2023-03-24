@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\publikasi;
 use Illuminate\Http\Request;
+use Response;
 
 class PublikasiController extends Controller
 {
@@ -13,7 +14,7 @@ class PublikasiController extends Controller
     }
     public function index()
     {
-        $publikasi=publikasi::all();
+        $publikasi=publikasi::simplePaginate(15);
         return view('admin.publikasi.home',compact('publikasi'));
     }
 
@@ -37,11 +38,12 @@ class PublikasiController extends Controller
     public function store(Request $request)
     {
         $publikasi=publikasi::create($request->all());
-        if($request->hasFile('foto')){
-            $request->file('foto')->move('foto/',$request->file('foto')->getClientOriginalName());
+        // if($request->hasFile('foto')){
+        //     dd($request);
+            $request->file('foto')->move('file/',$request->file('foto')->getClientOriginalName());
             $publikasi->foto=$request->file('foto')->getClientOriginalName();
             $publikasi->save();
-        }
+        // }
         return redirect('/publikasi')->with('data publikasi berhasil di tambah');
     }
 
@@ -53,8 +55,12 @@ class PublikasiController extends Controller
      */
     public function show(publikasi $publikasi)
     {
-        $publikasi=publikasi::all($bertia);
         return view('client.publikasi',compact('publikasi'));
+    }
+    public function download(publikasi $publikasi)
+    {
+        $file=public_path('file/').$publikasi->foto;
+        return Response::download($file);
     }
 
     /**
@@ -65,7 +71,6 @@ class PublikasiController extends Controller
      */
     public function edit(publikasi $publikasi)
     {
-        $publikasi=publikasi::find($publikasi);
         return view('admin.publikasi.edit',compact('publikasi'));
     }
 
@@ -78,14 +83,13 @@ class PublikasiController extends Controller
      */
     public function update(Request $request, publikasi $publikasi)
     {
-        $publikasi=publikasi::find($publikasi);
         $publikasi->update($request->all());
         if($request->hasFile('foto')){
-            $request->file('foto')->move('foto/',$request->file('foto')->getClientOriginalName());
+            $request->file('foto')->move('files/',$request->file('foto')->getClientOriginalName());
             $publikasi->foto=$request->file('foto')->getClientOriginalName();
             $publikasi->save();
         }else{
-            unset($foto['foto']);
+            unset($publikasi['foto']);
         }
         return redirect('/publikasi')->with('data publikasi berhasil di ubah');
     }
@@ -98,8 +102,7 @@ class PublikasiController extends Controller
      */
     public function destroy(publikasi $publikasi)
     {
-        $publikasi=publikasi::find($publikasi);
-        $publikasi->destroy();
+        $publikasi->delete();
         return redirect('/publikasi')->with('data publikasi berhasil di hapus');
 
     }

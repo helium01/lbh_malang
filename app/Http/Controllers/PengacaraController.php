@@ -13,7 +13,7 @@ class PengacaraController extends Controller
     }
     public function index()
     {
-        $pengacara=pengacara::all();
+        $pengacara=pengacara::simplePaginate(15);
         return view('admin.pengacara.home',compact('pengacara'));
     }
 
@@ -53,7 +53,6 @@ class PengacaraController extends Controller
      */
     public function show(pengacara $pengacara)
     {
-        $pengacara=pengacara::all($bertia);
         return view('client.pengacara',compact('pengacara'));
     }
 
@@ -65,7 +64,6 @@ class PengacaraController extends Controller
      */
     public function edit(pengacara $pengacara)
     {
-        $pengacara=pengacara::find($pengacara);
         return view('admin.pengacara.edit',compact('pengacara'));
     }
 
@@ -78,14 +76,13 @@ class PengacaraController extends Controller
      */
     public function update(Request $request, pengacara $pengacara)
     {
-        $pengacara=pengacara::find($pengacara);
         $pengacara->update($request->all());
         if($request->hasFile('foto')){
             $request->file('foto')->move('foto/',$request->file('foto')->getClientOriginalName());
             $pengacara->foto=$request->file('foto')->getClientOriginalName();
             $pengacara->save();
         }else{
-            unset($foto['foto']);
+            unset($pengacara['foto']);
         }
         return redirect('/pengacara')->with('data pengacara berhasil di ubah');
     }
@@ -98,8 +95,7 @@ class PengacaraController extends Controller
      */
     public function destroy(pengacara $pengacara)
     {
-        $pengacara=pengacara::find($pengacara);
-        $pengacara->destroy();
+        $pengacara->delete();
         return redirect('/pengacara')->with('data pengacara berhasil di hapus');
 
     }

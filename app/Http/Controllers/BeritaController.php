@@ -18,7 +18,7 @@ class BeritaController extends Controller
      */
     public function index()
     {
-        $berita=berita::all();
+        $berita=berita::simplePaginate(15);
         return view('admin.berita.home',compact('berita'));
     }
 
@@ -41,8 +41,10 @@ class BeritaController extends Controller
      */
     public function store(Request $request)
     {
+        
         $berita=berita::create($request->all());
         if($request->hasFile('foto')){
+            // dd($request);
             $request->file('foto')->move('foto/',$request->file('foto')->getClientOriginalName());
             $berita->foto=$request->file('foto')->getClientOriginalName();
             $berita->save();
@@ -70,7 +72,6 @@ class BeritaController extends Controller
      */
     public function edit(berita $berita)
     {
-        $berita=berita::find($berita);
         return view('admin.berita.edit',compact('berita'));
     }
 
@@ -83,14 +84,13 @@ class BeritaController extends Controller
      */
     public function update(Request $request, berita $berita)
     {
-        $berita=berita::find($berita);
         $berita->update($request->all());
         if($request->hasFile('foto')){
             $request->file('foto')->move('foto/',$request->file('foto')->getClientOriginalName());
             $berita->foto=$request->file('foto')->getClientOriginalName();
             $berita->save();
         }else{
-            unset($foto['foto']);
+            unset($berita['foto']);
         }
         return redirect('/berita')->with('data berita berhasil di ubah');
     }
@@ -103,8 +103,7 @@ class BeritaController extends Controller
      */
     public function destroy(berita $berita)
     {
-        $berita=berita::find($berita);
-        $berita->destroy();
+        $berita->delete();
         return redirect('/berita')->with('data berita berhasil di hapus');
 
     }

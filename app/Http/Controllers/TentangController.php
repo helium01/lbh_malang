@@ -13,8 +13,8 @@ class TentangController extends Controller
     }
     public function index()
     {
-        $berita=berita::all();
-        return view('admin.berita.home',compact('berita'));
+        $tentang=tentang::simplePaginate(15);
+        return view('admin.tentang.home',compact('tentang'));
     }
 
     /**
@@ -24,8 +24,8 @@ class TentangController extends Controller
      */
     public function create()
     {
-        // $berita=berita::all();
-        return view('admin.berita.tambah');
+        // $tentang=tentang::all();
+        return view('admin.tentang.tambah');
     }
 
     /**
@@ -36,71 +36,67 @@ class TentangController extends Controller
      */
     public function store(Request $request)
     {
-        $berita=berita::create($request->all());
-        if($request->hasFile('foto')){
-            $request->file('foto')->move('foto/',$request->file('foto')->getClientOriginalName());
-            $berita->foto=$request->file('foto')->getClientOriginalName();
-            $berita->save();
+        $tentang=tentang::create($request->all());
+        if($request->hasFile('struktur_organisasi')){
+            $request->file('struktur_organisasi')->move('struktur_organisasi/',$request->file('struktur_organisasi')->getClientOriginalName());
+            $tentang->struktur_organisasi=$request->file('struktur_organisasi')->getClientOriginalName();
+            $tentang->save();
         }
-        return redirect('/berita')->with('data berita berhasil di tambah');
+        return redirect('/tentang')->with('data tentang berhasil di tambah');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\berita  $berita
+     * @param  \App\Models\tentang  $tentang
      * @return \Illuminate\Http\Response
      */
-    public function show(berita $berita)
+    public function show(tentang $tentang)
     {
-        $berita=berita::all($bertia);
-        return view('client.berita',compact('berita'));
+        return view('client.tentang',compact('tentang'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\berita  $berita
+     * @param  \App\Models\tentang  $tentang
      * @return \Illuminate\Http\Response
      */
-    public function edit(berita $berita)
+    public function edit(tentang $tentang)
     {
-        $berita=berita::find($berita);
-        return view('admin.berita.edit',compact('berita'));
+        return view('admin.tentang.edit',compact('tentang'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\berita  $berita
+     * @param  \App\Models\tentang  $tentang
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, berita $berita)
+    public function update(Request $request, tentang $tentang)
     {
-        $berita=berita::find($berita);
-        $berita->update($request->all());
-        if($request->hasFile('foto')){
-            $request->file('foto')->move('foto/',$request->file('foto')->getClientOriginalName());
-            $berita->foto=$request->file('foto')->getClientOriginalName();
-            $berita->save();
+        $tentang->update($request->all());
+        if($request->hasFile('struktur_organisasi')){
+            $request->file('struktur_organisasi')->move('struktur_organisasi/',$request->file('struktur_organisasi')->getClientOriginalName());
+            $tentang->struktur_organisasi=$request->file('struktur_organisasi')->getClientOriginalName();
+            $tentang->save();
         }else{
-            unset($foto['foto']);
+            unset($tentang['struktur_organisasi']);
         }
-        return redirect('/berita')->with('data berita berhasil di ubah');
+        return redirect('/tentang')->with('data tentang berhasil di ubah');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\berita  $berita
+     * @param  \App\Models\tentang  $tentang
      * @return \Illuminate\Http\Response
      */
-    public function destroy(berita $berita)
+    public function destroy(tentang $tentang)
     {
-        $berita=berita::find($berita);
-        $berita->destroy();
-        return redirect('/berita')->with('data berita berhasil di hapus');
+        $tentang->delete();
+        return redirect('/tentang')->with('data tentang berhasil di hapus');
 
     }
 }

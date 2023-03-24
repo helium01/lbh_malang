@@ -13,7 +13,7 @@ class PengumumanController extends Controller
     }
     public function index()
     {
-        $pengumuman=pengumuman::all();
+        $pengumuman=pengumuman::simplePaginate(15);
         return view('admin.pengumuman.home',compact('pengumuman'));
     }
 
@@ -53,7 +53,6 @@ class PengumumanController extends Controller
      */
     public function show(pengumuman $pengumuman)
     {
-        $pengumuman=pengumuman::all($bertia);
         return view('client.pengumuman',compact('pengumuman'));
     }
 
@@ -65,7 +64,6 @@ class PengumumanController extends Controller
      */
     public function edit(pengumuman $pengumuman)
     {
-        $pengumuman=pengumuman::find($pengumuman);
         return view('admin.pengumuman.edit',compact('pengumuman'));
     }
 
@@ -78,14 +76,13 @@ class PengumumanController extends Controller
      */
     public function update(Request $request, pengumuman $pengumuman)
     {
-        $pengumuman=pengumuman::find($pengumuman);
         $pengumuman->update($request->all());
         if($request->hasFile('foto')){
             $request->file('foto')->move('foto/',$request->file('foto')->getClientOriginalName());
             $pengumuman->foto=$request->file('foto')->getClientOriginalName();
             $pengumuman->save();
         }else{
-            unset($foto['foto']);
+            unset($pengumuman['foto']);
         }
         return redirect('/pengumuman')->with('data pengumuman berhasil di ubah');
     }
@@ -98,8 +95,7 @@ class PengumumanController extends Controller
      */
     public function destroy(pengumuman $pengumuman)
     {
-        $pengumuman=pengumuman::find($pengumuman);
-        $pengumuman->destroy();
+        $pengumuman->delete();
         return redirect('/pengumuman')->with('data pengumuman berhasil di hapus');
 
     }

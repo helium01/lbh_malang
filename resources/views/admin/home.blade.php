@@ -25,65 +25,33 @@
       <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
         <div class="row">
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-info">
-              <div class="inner">
-                <h3>150</h3>
+          <div class="col-lg-12 col-6">
+            <!-- small box --> <hr>
+            <p>
+            Selamat datang di dashboard aplikasi LBH Malang! Kami sangat senang dapat menyambut Anda sebagai pengguna baru dan ingin mengucapkan terima kasih atas kepercayaan Anda dalam menggunakan aplikasi ini.
+            <br>
+            LBH Malang adalah sebuah lembaga bantuan hukum yang berfokus pada upaya perlindungan hak asasi manusia dan keadilan di wilayah Malang. Aplikasi ini dibuat sebagai bagian dari misi kami untuk memberikan akses yang lebih mudah dan efisien kepada masyarakat yang membutuhkan layanan bantuan hukum.
+            <br>
+            Dalam dashboard ini, Anda akan menemukan berbagai fitur dan layanan yang tersedia untuk membantu Anda dalam memperoleh bantuan hukum. Salah satu fitur utama adalah "Permintaan Bantuan Hukum", di mana Anda dapat mengajukan permohonan bantuan hukum secara online. Tim LBH Malang akan segera menindaklanjuti permintaan Anda dan memberikan bantuan yang diperlukan.
+            <br>
+            Selain itu, kami juga menyediakan fitur "Informasi Hukum", yang berisi informasi tentang berbagai hal terkait hukum dan hak asasi manusia. Informasi ini dapat membantu Anda memahami hak-hak Anda dan menjawab pertanyaan-pertanyaan yang mungkin Anda miliki tentang hukum.
+            <br>
+            Tentunya, keamanan dan privasi Anda adalah prioritas kami. Oleh karena itu, kami telah mengambil langkah-langkah untuk memastikan bahwa data Anda aman dan terlindungi dalam aplikasi ini. Kami juga memastikan bahwa semua informasi yang Anda berikan kepada kami akan dijaga kerahasiaannya dan tidak akan dibagikan dengan pihak lain tanpa izin Anda.
 
-                <p>New Orders</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-bag"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
+Kami berkomitmen untuk terus meningkatkan kualitas layanan kami, dan mengambil setiap masukan dan saran dari pengguna dengan serius. Oleh karena itu, jika Anda memiliki saran atau masukan tentang cara kami dapat meningkatkan layanan kami, jangan ragu untuk menghubungi kami melalui fitur "Kontak Kami" di aplikasi ini.
+
+Terakhir, kami ingin mengucapkan terima kasih atas kesempatan untuk melayani Anda melalui aplikasi ini. Kami berharap dapat membantu Anda dalam mengatasi masalah hukum dan menjaga hak-hak Anda. Jangan ragu untuk menghubungi kami jika Anda membutuhkan bantuan atau memiliki pertanyaan lebih lanjut.
+<br>
+Salam hormat,
+<br>
+Tim LBH Malang.
+            </p>
+<hr>
           </div>
           <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-success">
-              <div class="inner">
-                <h3>53<sup style="font-size: 20px">%</sup></h3>
-
-                <p>Bounce Rate</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-stats-bars"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
+          
           <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-warning">
-              <div class="inner">
-                <h3>44</h3>
-
-                <p>User Registrations</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-person-add"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-danger">
-              <div class="inner">
-                <h3>65</h3>
-
-                <p>Unique Visitors</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-pie-graph"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
+          
           <!-- ./col -->
         </div>
         <!-- /.row -->

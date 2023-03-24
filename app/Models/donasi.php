@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class donasi extends Model
 {
     use HasFactory;
+    protected $fillable=[
+        'judul',
+        'author',
+        'tanggal',
+        'foto',
+        'deskripsi'
+    ];
 }

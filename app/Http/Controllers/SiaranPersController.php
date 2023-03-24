@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\siaran_pers;
+use App\Models\siaranpers;
 use Illuminate\Http\Request;
 
 class SiaranPersController extends Controller
@@ -13,8 +13,8 @@ class SiaranPersController extends Controller
     }
     public function index()
     {
-        $siaran_pers=siaran_pers::all();
-        return view('admin.siaran_pers.home',compact('siaran_pers'));
+        $siaranpers=siaranpers::simplePaginate(15);
+        return view('admin.siaranpers.home',compact('siaranpers'));
     }
 
     /**
@@ -24,8 +24,8 @@ class SiaranPersController extends Controller
      */
     public function create()
     {
-        // $siaran_pers=siaran_pers::all();
-        return view('admin.siaran_pers.tambah');
+        // $siaranpers=siaranpers::all();
+        return view('admin.siaranpers.tambah');
     }
 
     /**
@@ -36,71 +36,67 @@ class SiaranPersController extends Controller
      */
     public function store(Request $request)
     {
-        $siaran_pers=siaran_pers::create($request->all());
+        $siaranpers=siaranpers::create($request->all());
         if($request->hasFile('foto')){
             $request->file('foto')->move('foto/',$request->file('foto')->getClientOriginalName());
-            $siaran_pers->foto=$request->file('foto')->getClientOriginalName();
-            $siaran_pers->save();
+            $siaranpers->foto=$request->file('foto')->getClientOriginalName();
+            $siaranpers->save();
         }
-        return redirect('/siaran_pers')->with('data siaran_pers berhasil di tambah');
+        return redirect('/siaranpers')->with('data siaranpers berhasil di tambah');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\siaran_pers  $siaran_pers
+     * @param  \App\Models\siaranpers  $siaranpers
      * @return \Illuminate\Http\Response
      */
-    public function show(siaran_pers $siaran_pers)
+    public function show(siaranpers $siaranpers)
     {
-        $siaran_pers=siaran_pers::all($bertia);
-        return view('client.siaran_pers',compact('siaran_pers'));
+        return view('client.siaranpers',compact('siaranpers'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\siaran_pers  $siaran_pers
+     * @param  \App\Models\siaranpers  $siaranpers
      * @return \Illuminate\Http\Response
      */
-    public function edit(siaran_pers $siaran_pers)
+    public function edit(siaranpers $siaranpers)
     {
-        $siaran_pers=siaran_pers::find($siaran_pers);
-        return view('admin.siaran_pers.edit',compact('siaran_pers'));
+        return view('admin.siaranpers.edit',compact('siaranpers'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\siaran_pers  $siaran_pers
+     * @param  \App\Models\siaranpers  $siaranpers
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, siaran_pers $siaran_pers)
+    public function update(Request $request, siaranpers $siaranpers)
     {
-        $siaran_pers=siaran_pers::find($siaran_pers);
-        $siaran_pers->update($request->all());
+        $siaranpers->update($request->all());
         if($request->hasFile('foto')){
             $request->file('foto')->move('foto/',$request->file('foto')->getClientOriginalName());
-            $siaran_pers->foto=$request->file('foto')->getClientOriginalName();
-            $siaran_pers->save();
+            $siaranpers->foto=$request->file('foto')->getClientOriginalName();
+            $siaranpers->save();
         }else{
             unset($foto['foto']);
         }
-        return redirect('/siaran_pers')->with('data siaran_pers berhasil di ubah');
+        return redirect('/siaranpers')->with('data siaranpers berhasil di ubah');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\siaran_pers  $siaran_pers
+     * @param  \App\Models\siaranpers  $siaranpers
      * @return \Illuminate\Http\Response
      */
-    public function destroy(siaran_pers $siaran_pers)
+    public function destroy(siaranpers $siaranpers)
     {
-        $siaran_pers=siaran_pers::find($siaran_pers);
-        $siaran_pers->destroy();
-        return redirect('/siaran_pers')->with('data siaran_pers berhasil di hapus');
+        $siaranpers->delete();
+        return redirect('/siaranpers')->with('data siaranpers berhasil di hapus');
 
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\donasi;
 use Illuminate\Http\Request;
+use App\Services\Midtrans\CreateSnapTokenService;
 
 class DonasiController extends Controller
 {
@@ -18,7 +19,7 @@ class DonasiController extends Controller
      */
     public function index()
     {
-        $donasi=donasi::all();
+        $donasi=donasi::simplePaginate(15);
         return view('admin.donasi.home',compact('donasi'));
     }
 

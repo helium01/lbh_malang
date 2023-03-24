@@ -13,7 +13,7 @@ class ProfilController extends Controller
     }
     public function index()
     {
-        $profil=profil::all();
+        $profil=profil::simplePaginate(15);
         return view('admin.profil.home',compact('profil'));
     }
 
@@ -37,9 +37,24 @@ class ProfilController extends Controller
     public function store(Request $request)
     {
         $profil=profil::create($request->all());
-        if($request->hasFile('foto')){
-            $request->file('foto')->move('foto/',$request->file('foto')->getClientOriginalName());
-            $profil->foto=$request->file('foto')->getClientOriginalName();
+        if($request->hasFile('logo')){
+            $request->file('logo')->move('logo/',$request->file('logo')->getClientOriginalName());
+            $profil->logo=$request->file('logo')->getClientOriginalName();
+            $profil->save();
+        }
+        if($request->hasFile('bg_1')){
+            $request->file('bg_1')->move('bg_1/',$request->file('bg_1')->getClientOriginalName());
+            $profil->bg_1=$request->file('bg_1')->getClientOriginalName();
+            $profil->save();
+        }
+        if($request->hasFile('bg_2')){
+            $request->file('bg_2')->move('bg_2/',$request->file('bg_2')->getClientOriginalName());
+            $profil->bg_2=$request->file('bg_2')->getClientOriginalName();
+            $profil->save();
+        }
+        if($request->hasFile('bg_3')){
+            $request->file('bg_3')->move('bg_3/',$request->file('bg_3')->getClientOriginalName());
+            $profil->bg_3=$request->file('bg_3')->getClientOriginalName();
             $profil->save();
         }
         return redirect('/profil')->with('data profil berhasil di tambah');
@@ -53,7 +68,6 @@ class ProfilController extends Controller
      */
     public function show(profil $profil)
     {
-        $profil=profil::all($bertia);
         return view('client.profil',compact('profil'));
     }
 
@@ -65,7 +79,6 @@ class ProfilController extends Controller
      */
     public function edit(profil $profil)
     {
-        $profil=profil::find($profil);
         return view('admin.profil.edit',compact('profil'));
     }
 
@@ -78,14 +91,34 @@ class ProfilController extends Controller
      */
     public function update(Request $request, profil $profil)
     {
-        $profil=profil::find($profil);
         $profil->update($request->all());
-        if($request->hasFile('foto')){
-            $request->file('foto')->move('foto/',$request->file('foto')->getClientOriginalName());
-            $profil->foto=$request->file('foto')->getClientOriginalName();
+        if($request->hasFile('logo')){
+            $request->file('logo')->move('logo/',$request->file('logo')->getClientOriginalName());
+            $profil->logo=$request->file('logo')->getClientOriginalName();
             $profil->save();
         }else{
-            unset($foto['foto']);
+            unset($profil['logo']);
+        }
+        if($request->hasFile('bg_1')){
+            $request->file('bg_1')->move('bg_1/',$request->file('bg_1')->getClientOriginalName());
+            $profil->bg_1=$request->file('bg_1')->getClientOriginalName();
+            $profil->save();
+        }else{
+            unset($profil['bg_1']);
+        }
+        if($request->hasFile('bg_2')){
+            $request->file('bg_2')->move('bg_2/',$request->file('bg_2')->getClientOriginalName());
+            $profil->bg_2=$request->file('bg_2')->getClientOriginalName();
+            $profil->save();
+        }else{
+            unset($profil['bg_2']);
+        }
+        if($request->hasFile('bg_3')){
+            $request->file('bg_3')->move('bg_3/',$request->file('bg_3')->getClientOriginalName());
+            $profil->bg_3=$request->file('bg_3')->getClientOriginalName();
+            $profil->save();
+        }else{
+            unset($profil['bg_3']);
         }
         return redirect('/profil')->with('data profil berhasil di ubah');
     }
@@ -98,8 +131,7 @@ class ProfilController extends Controller
      */
     public function destroy(profil $profil)
     {
-        $profil=profil::find($profil);
-        $profil->destroy();
+        $profil->delete();
         return redirect('/profil')->with('data profil berhasil di hapus');
 
     }

@@ -13,7 +13,7 @@ class KegiatanController extends Controller
     }
     public function index()
     {
-        $kegiatan=kegiatan::all();
+        $kegiatan=kegiatan::simplePaginate(15);
         return view('admin.kegiatan.home',compact('kegiatan'));
     }
 
@@ -53,7 +53,6 @@ class KegiatanController extends Controller
      */
     public function show(kegiatan $kegiatan)
     {
-        $kegiatan=kegiatan::all($bertia);
         return view('client.kegiatan',compact('kegiatan'));
     }
 
@@ -65,7 +64,6 @@ class KegiatanController extends Controller
      */
     public function edit(kegiatan $kegiatan)
     {
-        $kegiatan=kegiatan::find($kegiatan);
         return view('admin.kegiatan.edit',compact('kegiatan'));
     }
 
@@ -78,14 +76,13 @@ class KegiatanController extends Controller
      */
     public function update(Request $request, kegiatan $kegiatan)
     {
-        $kegiatan=kegiatan::find($kegiatan);
         $kegiatan->update($request->all());
         if($request->hasFile('foto')){
             $request->file('foto')->move('foto/',$request->file('foto')->getClientOriginalName());
             $kegiatan->foto=$request->file('foto')->getClientOriginalName();
             $kegiatan->save();
         }else{
-            unset($foto['foto']);
+            unset($kegiatan['foto']);
         }
         return redirect('/kegiatan')->with('data kegiatan berhasil di ubah');
     }
@@ -98,8 +95,7 @@ class KegiatanController extends Controller
      */
     public function destroy(kegiatan $kegiatan)
     {
-        $kegiatan=kegiatan::find($kegiatan);
-        $kegiatan->destroy();
+        $kegiatan->delete();
         return redirect('/kegiatan')->with('data kegiatan berhasil di hapus');
 
     }

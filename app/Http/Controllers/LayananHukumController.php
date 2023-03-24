@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\layanan_hukum;
+use App\Models\layanan;
 use Illuminate\Http\Request;
 
 class LayananHukumController extends Controller
@@ -13,8 +13,8 @@ class LayananHukumController extends Controller
     }
     public function index()
     {
-        $layanan_hukum=layanan_hukum::all();
-        return view('admin.layanan_hukum.home',compact('layanan_hukum'));
+        $layanan=layanan::simplePaginate(15);
+        return view('admin.layanan.home',compact('layanan'));
     }
 
     /**
@@ -24,8 +24,8 @@ class LayananHukumController extends Controller
      */
     public function create()
     {
-        // $layanan_hukum=layanan_hukum::all();
-        return view('admin.layanan_hukum.tambah');
+        // $layanan=layanan::all();
+        return view('admin.layanan.tambah');
     }
 
     /**
@@ -36,71 +36,79 @@ class LayananHukumController extends Controller
      */
     public function store(Request $request)
     {
-        $layanan_hukum=layanan_hukum::create($request->all());
-        if($request->hasFile('foto')){
-            $request->file('foto')->move('foto/',$request->file('foto')->getClientOriginalName());
-            $layanan_hukum->foto=$request->file('foto')->getClientOriginalName();
-            $layanan_hukum->save();
+        $layanan=layanan::create($request->all());
+        if($request->hasFile('identitas')){
+            $request->file('identitas')->move('identitas/',$request->file('identitas')->getClientOriginalName());
+            $layanan->identitas=$request->file('identitas')->getClientOriginalName();
+            $layanan->save();
         }
-        return redirect('/layanan_hukum')->with('data layanan_hukum berhasil di tambah');
+        if($request->hasFile('keterangan_tidak_mampu')){
+            $request->file('keterangan_tidak_mampu')->move('keterangan_tidak_mampu/',$request->file('keterangan_tidak_mampu')->getClientOriginalName());
+            $layanan->keterangan_tidak_mampu=$request->file('keterangan_tidak_mampu')->getClientOriginalName();
+            $layanan->save();
+        }
+        return redirect('/layanan')->with('data layanan berhasil di tambah');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\layanan_hukum  $layanan_hukum
+     * @param  \App\Models\layanan  $layanan
      * @return \Illuminate\Http\Response
      */
-    public function show(layanan_hukum $layanan_hukum)
+    public function show(layanan $layanan)
     {
-        $layanan_hukum=layanan_hukum::all($bertia);
-        return view('client.layanan_hukum',compact('layanan_hukum'));
+        return view('client.layanan',compact('layanan'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\layanan_hukum  $layanan_hukum
+     * @param  \App\Models\layanan  $layanan
      * @return \Illuminate\Http\Response
      */
-    public function edit(layanan_hukum $layanan_hukum)
+    public function edit(layanan $layanan)
     {
-        $layanan_hukum=layanan_hukum::find($layanan_hukum);
-        return view('admin.layanan_hukum.edit',compact('layanan_hukum'));
+        return view('admin.layanan.edit',compact('layanan'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\layanan_hukum  $layanan_hukum
+     * @param  \App\Models\layanan  $layanan
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, layanan_hukum $layanan_hukum)
+    public function update(Request $request, layanan $layanan)
     {
-        $layanan_hukum=layanan_hukum::find($layanan_hukum);
-        $layanan_hukum->update($request->all());
-        if($request->hasFile('foto')){
-            $request->file('foto')->move('foto/',$request->file('foto')->getClientOriginalName());
-            $layanan_hukum->foto=$request->file('foto')->getClientOriginalName();
-            $layanan_hukum->save();
+        $layanan->update($request->all());
+        if($request->hasFile('identitas')){
+            $request->file('identitas')->move('identitas/',$request->file('identitas')->getClientOriginalName());
+            $layanan->identitas=$request->file('identitas')->getClientOriginalName();
+            $layanan->save();
         }else{
-            unset($foto['foto']);
+            unset($layanan['identitas']);
         }
-        return redirect('/layanan_hukum')->with('data layanan_hukum berhasil di ubah');
+        if($request->hasFile('keterangan_tidak_mampu')){
+            $request->file('keterangan_tidak_mampu')->move('keterangan_tidak_mampu/',$request->file('keterangan_tidak_mampu')->getClientOriginalName());
+            $layanan->keterangan_tidak_mampu=$request->file('keterangan_tidak_mampu')->getClientOriginalName();
+            $layanan->save();
+        }else{
+            unset($layanan['keterangan_tidak_mampu']);
+        }
+        return redirect('/layanan')->with('data layanan berhasil di ubah');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\layanan_hukum  $layanan_hukum
+     * @param  \App\Models\layanan  $layanan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(layanan_hukum $layanan_hukum)
+    public function destroy(layanan $layanan)
     {
-        $layanan_hukum=layanan_hukum::find($layanan_hukum);
-        $layanan_hukum->destroy();
-        return redirect('/layanan_hukum')->with('data layanan_hukum berhasil di hapus');
+        $layanan->delete();
+        return redirect('/layanan')->with('data layanan berhasil di hapus');
 
     }
 }
